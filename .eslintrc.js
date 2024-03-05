@@ -3,6 +3,7 @@ module.exports = {
   root: true,
   extends: [
     require.resolve("@vercel/style-guide/eslint/node"),
+    require.resolve("@vercel/style-guide/eslint/browser"),
     require.resolve("@vercel/style-guide/eslint/typescript")
   ],
   parserOptions: {
@@ -11,36 +12,32 @@ module.exports = {
   },
   overrides: [
     /**
-     * Config files (ex: jest.config.js, prettier.config.js, tailwind.config.js)
+     * Config files (ex: prettier.config.js, tsup.config.ts, etc)
      */
     {
-      files: ["*.config.js"],
+      files: ["*.config.{ts,js}"],
       env: {
         node: true
       },
       rules: {
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+        "import/no-default-export": "off"
       }
     },
     /**
-     * Jest Configuration
+     * Test Configuration
      */
     {
       files: ["**/__tests__/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
-      env: {
-        jest: true
-      },
-      extends: [
-        require.resolve("@vercel/style-guide/eslint/jest"),
-        "plugin:jest/style"
-      ],
-      plugins: ["jest"],
+      plugins: ["vitest"],
+      extends: ["plugin:vitest/all"],
       rules: {
         /**
          * Allow non-null assertions in tests
          */
         "@typescript-eslint/no-non-null-assertion": "off",
-        "eslint-comments/require-description": "off"
+        "eslint-comments/require-description": "off",
+        "vitest/prefer-expect-assertions": "off"
       }
     }
   ],

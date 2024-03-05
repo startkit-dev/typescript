@@ -2,7 +2,7 @@
 
 /* eslint-disable no-console -- CLI scripts should use the console */
 
-import { hello } from "./hello"
+import { hello } from "../hello"
 
 /**
  * Main entrypoint for the cli
